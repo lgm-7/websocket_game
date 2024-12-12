@@ -46,7 +46,6 @@ class Score {
 
   reset() {
     this.score = 0;
-    this.scoreIncrement = 0;
     this.currentStage = 1000;
 
     // 모든 스테이지에 변경여부 초기화
