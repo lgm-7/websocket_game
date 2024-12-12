@@ -108,7 +108,7 @@ function createSprites() {
 
   itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED);
 
-  score = new Score(ctx, scaleRatio);
+  score = new Score(ctx, scaleRatio, STAGE_DATA);
 }
 
 function getScaleRatio() {

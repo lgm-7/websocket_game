@@ -22,14 +22,13 @@ export const moveStageHandler = (userId, payload) => {
   const targetStageInfo = stages.data.find((stage) => stage.id === payload.targetStage);
 
   // 점수 검증
-  console.log(stages.data);
   console.log(targetStageInfo);
   const serverTime = Date.now();
   // const itemsScore = getItems(userId);
   const totalScore = currentStageInfo.scorePerSecond * serverTime;
   //+ itemsScore;
 
-  // 스테이지 1초당 정해진 점수, 100점이상 다음스테이지 이동
+  // 스테이지 정해진 점수, 다음스테이지 이동 지연
   if (targetStageInfo.score > totalScore) {
     return { status: 'fail', message: 'Invalid elapsed time' };
   }
