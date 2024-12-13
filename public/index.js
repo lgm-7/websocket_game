@@ -5,7 +5,7 @@ import Score from './Score.js';
 import ItemController from './ItemController.js';
 import './Socket.js';
 import { sendEvent } from './Socket.js';
-import stageData from './assets/stage.json' with { type: 'json' };
+import stageData from './assets/stage.json' with { type: 'json' }; //with json파일 import시키기 :  assert  <--이자식왜 안먹음? ??버젼차이??
 import itemData from './assets/item.json' with { type: 'json' };
 import item_unlockData from './assets/item_unlock.json' with { type: 'json' };
 
@@ -26,6 +26,8 @@ const PLAYER_HEIGHT = 94 / 1.5; // 62
 const MAX_JUMP_HEIGHT = GAME_HEIGHT;
 const MIN_JUMP_HEIGHT = 150;
 
+const STAGE_DATA = stageData.data;
+
 // 땅
 const GROUND_WIDTH = 2400;
 const GROUND_HEIGHT = 24;
@@ -39,17 +41,7 @@ const CACTI_CONFIG = [
 ];
 
 // 아이템
-const ITEM_CONFIG = [
-  { width: 50 / 1.5, height: 50 / 1.5, id: 1, image: 'images/items/pokeball_red.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 2, image: 'images/items/pokeball_yellow.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 3, image: 'images/items/pokeball_purple.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 4, image: 'images/items/pokeball_cyan.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 5, image: 'images/items/pokeball_orange.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 6, image: 'images/items/pokeball_pink.png' },
-];
-
-const STAGE_DATA = stageData.data;
-const ITEM_DATA = itemData.data;
+const ITEM_CONFIG = itemData.data;
 const ITEM_UNLOCK = item_unlockData.data;
 
 // 게임 요소들
@@ -100,7 +92,6 @@ function createSprites() {
   });
 
   cactiController = new CactiController(ctx, cactiImages, scaleRatio, GROUND_SPEED);
-
   const itemImages = ITEM_CONFIG.map((item) => {
     const image = new Image();
     image.src = item.image;
@@ -111,10 +102,9 @@ function createSprites() {
       height: item.height * scaleRatio,
     };
   });
+  itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED, ITEM_UNLOCK);
 
-  itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED);
-
-  score = new Score(ctx, scaleRatio, STAGE_DATA, ITEM_DATA, ITEM_UNLOCK);
+  score = new Score(ctx, scaleRatio, STAGE_DATA, ITEM_CONFIG, itemController);
 }
 
 function getScaleRatio() {

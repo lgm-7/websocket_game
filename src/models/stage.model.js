@@ -15,3 +15,7 @@ export const setStage = (uuid, id, timestamp) => {
 export const clearStage = (uuid) => {
   return (stages[uuid] = []);
 };
+
+export const getItems = (uuid) => {
+  return stages[uuid];
+};

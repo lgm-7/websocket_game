@@ -42,7 +42,10 @@ class Score {
   }
 
   getItem(itemId) {
-    this.score += 0;
+    const checkItem = this.itemTable.find((item) => item.id === itemId); //얻은 아이템id확인
+    if (checkItem) {
+      this.score += checkItem.score;
+    }
   }
 
   reset() {

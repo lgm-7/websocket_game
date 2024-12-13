@@ -1,4 +1,4 @@
-import { getStage, setStage } from '../models/stage.model.js';
+import { getStage, setStage, getItems } from '../models/stage.model.js';
 import { getGameAssets } from '../init/assets.js';
 
 export const moveStageHandler = (userId, payload) => {
@@ -24,9 +24,8 @@ export const moveStageHandler = (userId, payload) => {
   // 점수 검증
   console.log(targetStageInfo);
   const serverTime = Date.now();
-  // const itemsScore = getItems(userId);
-  const totalScore = currentStageInfo.scorePerSecond * serverTime;
-  //+ itemsScore;
+  const itemsScore = getItems(userId);
+  const totalScore = currentStageInfo.scorePerSecond * serverTime + itemsScore;
 
   // 스테이지 정해진 점수, 다음스테이지 이동 지연
   if (targetStageInfo.score > totalScore) {
