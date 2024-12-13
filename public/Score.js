@@ -25,7 +25,7 @@ class Score {
 
       if (
         Math.floor(this.score) >= stage.score && //점수달성
-        !this.stageChange[stage.id] //변경여부 false인 경우만
+        !this.stageChange[stage.id] //해당스테이지 변경여부 false인 경우만 스테이지 넘어감
       ) {
         const previousStage = this.currentStage;
         this.currentStage = stage.id;
@@ -35,14 +35,14 @@ class Score {
 
         sendEvent(11, { currentStage: previousStage, targetStage: this.currentStage });
 
-        //스테이지 넘어가는게 한번만
+        //스테이지 넘어갔으면 반복탈출
         break;
       }
     }
   }
 
   getItem(itemId) {
-    const checkItem = this.itemTable.find((item) => item.id === itemId); //얻은 아이템id확인
+    const checkItem = this.itemTable.find((item) => item.id === itemId); //얻은 아이템id
     if (checkItem) {
       this.score += checkItem.score;
     }
