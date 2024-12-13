@@ -6,11 +6,12 @@ class Score {
   currentStage = 1000;
   stageChange = {};
 
-  constructor(ctx, scaleRatio, stageTable) {
+  constructor(ctx, scaleRatio, stageTable, itemTable) {
     this.ctx = ctx;
     this.canvas = ctx.canvas;
     this.scaleRatio = scaleRatio;
     this.stageTable = stageTable;
+    this.itemTable = itemTable;
   }
 
   update(deltaTime) {
