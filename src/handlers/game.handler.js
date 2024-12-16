@@ -1,10 +1,12 @@
 import { getGameAssets } from '../init/assets.js';
 import { clearStage, getStage, setStage } from '../models/stage.model.js';
+import { resetItem } from '../models/item.model.js';
 
 export const gameStart = (uuid, payload) => {
   const { stages } = getGameAssets();
   clearStage(uuid);
   setStage(uuid, stages.data[0].id, payload.timestamp);
+  resetItem(uuid);
   console.log('Stage:', getStage(uuid));
 
   return { status: 'success' };
@@ -38,7 +40,7 @@ export const gameEnd = (uuid, payload) => {
   if (Math.abs(score - totalScore) > 5) {
     return { status: 'fail', message: 'Score verification failed' };
   }
-
+  console.log(`totalScore: ${totalScore}`);
   // 모든 검증이 통과된 후, 클라이언트에서 제공한 점수 저장하는 로직
   // saveGameResult(userId, clientScore, gameEndTime);
   // 검증이 통과되면 게임 종료 처리
