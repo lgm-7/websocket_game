@@ -23,7 +23,6 @@ export const moveStageHandler = (userId, payload) => {
   const targetStageInfo = stages.data.find((stage) => stage.id === payload.targetStage);
 
   // 점수 검증
-  console.log(targetStageInfo);
   const serverTime = Date.now();
   const itemsScore = getItems(userId);
   const totalScore = currentStageInfo.scorePerSecond * serverTime + itemsScore;
@@ -41,5 +40,5 @@ export const moveStageHandler = (userId, payload) => {
 
   // 유저의 다음 스테이지 정보 업데이트 + 현재 시간
   setStage(userId, payload.targetStage, serverTime);
-  return { status: 'success' };
+  return { status: 'success', handler: 11 };
 };

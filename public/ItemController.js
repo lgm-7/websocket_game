@@ -29,25 +29,28 @@ class ItemController {
 
   //아이템 생성
   createItem() {
-    const unlockItem = this.itemUnlock.find((stage) => stage.stage_id === this.currentStage);
-    // if (unlockItem) {
-    //     const filterItem = this.itemUnlock.filter()
-    const index = this.getRandomNumber(0, this.itemImages.length - 1);
-    const itemInfo = this.itemImages[index];
-    const x = this.canvas.width * 1.5;
-    const y = this.getRandomNumber(10, this.canvas.height - itemInfo.height);
-    // }
-    const item = new Item(
-      this.ctx,
-      itemInfo.id,
-      x,
-      y,
-      itemInfo.width,
-      itemInfo.height,
-      itemInfo.image,
-    );
+    const stageItems = this.itemUnlock.find(
+      (stage) => stage.stage_id === this.currentStage,
+    ).item_id;
+    if (stageItems) {
+      const availableItems = this.itemImages.filter((item) => stageItems.includes(item.id));
+      const index = this.getRandomNumber(0, availableItems.length - 1);
+      const itemInfo = availableItems[index];
+      const x = this.canvas.width * 1.5;
+      const y = this.getRandomNumber(10, this.canvas.height - itemInfo.height);
 
-    this.items.push(item);
+      const item = new Item(
+        this.ctx,
+        itemInfo.id,
+        x,
+        y,
+        itemInfo.width / 1.5,
+        itemInfo.height / 1.5,
+        itemInfo.image,
+      );
+
+      this.items.push(item);
+    }
   }
 
   update(gameSpeed, deltaTime) {
@@ -81,6 +84,10 @@ class ItemController {
 
   reset() {
     this.items = [];
+  }
+
+  setCurrentStage(stageId) {
+    this.currentStage = stageId;
   }
 }
 

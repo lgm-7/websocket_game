@@ -6,12 +6,13 @@ class Score {
   currentStage = 1000;
   stageChange = {};
 
-  constructor(ctx, scaleRatio, stageTable, itemTable) {
+  constructor(ctx, scaleRatio, stageTable, itemTable, itemController) {
     this.ctx = ctx;
     this.canvas = ctx.canvas;
     this.scaleRatio = scaleRatio;
     this.stageTable = stageTable;
     this.itemTable = itemTable;
+    this.itemController = itemController;
   }
 
   update(deltaTime) {
@@ -35,6 +36,10 @@ class Score {
 
         sendEvent(11, { currentStage: previousStage, targetStage: this.currentStage });
 
+        if (this.itemController) {
+          this.itemController.setCurrentStage(this.currentStage);
+        }
+
         //스테이지 넘어갔으면 반복탈출
         break;
       }
@@ -45,6 +50,7 @@ class Score {
     const checkItem = this.itemTable.find((item) => item.id === itemId); //얻은 아이템id
     if (checkItem) {
       this.score += checkItem.score;
+      sendEvent(12, { itemId, timestamp: Date.now() });
     }
   }
 

@@ -5,7 +5,7 @@ export const resetItem = (userId) => {
 };
 
 //아이템 획득기록
-export const checkgetItem = (userId, item) => {
+export const checkItem = (userId, item) => {
   if (!items[userId]) {
     return (items[userId] = []);
   }
