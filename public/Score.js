@@ -18,7 +18,6 @@ class Score {
   update(deltaTime) {
     const currentStageInfo = this.stageTable.find((stage) => stage.id === this.currentStage);
     const scorePerSecond = currentStageInfo ? currentStageInfo.scorePerSecond : 1;
-
     this.score += deltaTime * 0.001 * scorePerSecond;
 
     for (let i = 0; i < this.stageTable.length; i++) {

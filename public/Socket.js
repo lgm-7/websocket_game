@@ -16,6 +16,10 @@ socket.on('connection', (data) => {
   userId = data.uuid;
 });
 
+socket.on('highScore', (data) => {
+  console.log(`highScore: ${data.uuid}, score: ${data.score}`);
+});
+
 const sendEvent = (handlerId, payload) => {
   socket.emit('event', {
     userId,
